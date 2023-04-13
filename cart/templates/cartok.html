@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div id="maindiv">
+    <p class="title">Completed Order </p>
+    <p class="subject">Thanks for your order！</p>
+    <p class="desc">Dear, <strong>{{customname1}}</strong> (Mr. / Ms.),You have completed order process successfully,we will send your products to you as soon as possible.Thanks for your support again!<br />
+    <a href="/cartordercheck/?orderid={{orderid}}&customemail={{mailto}}">&lt;Press for Detail&gt;</a></p>
+  </div>
+{% endblock %}

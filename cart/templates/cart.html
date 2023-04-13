@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block script %}
+  <script type="text/javascript">
+    function confirmLink(message) { //v1.0
+    if(message == "") message = "Sure"; 
+      document.returnValue = confirm(message);
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+  <div id="maindiv">
+    <form action="/addtocart/update/" method="post" name="form1" id="form1">
+      {% csrf_token %}
+      <table width="90%" border="0" align="center" cellpadding="4" cellspacing="0">
+        <tr>
+          <th width="60" align="center"><strong>Cancel</strong></th>
+          <th align="left"><strong>Product Name</strong></th>
+          <th width="80" align="center"><strong>Price</strong></th>
+          <th width="80" align="center"><strong>Number</strong></th>
+          <th width="100" align="center"><strong>Total Price</strong></th>
+        </tr>
+        {% for unit in cartlist1 %}
+        <tr>
+          <td bgcolor="#FFFFFF"><a href="/addtocart/remove/{{forloop.counter0}}" class="delcart" onClick="confirmLink('Delete for sure？'); return document.returnValue">Delete</a></td>
+          <td align="left" bgcolor="#FFFFFF">{{unit.0}}</td>
+          <td width="80" align="center" bgcolor="#FFFFFF">$ {{unit.1}}</td>
+          <td width="80" align="center" bgcolor="#FFFFFF"><input name="qty{{forloop.counter0}}" type="text" id="qty{{forloop.counter0}}" value="{{unit.2}}" size="2" /></td>
+          <td width="100" align="center" bgcolor="#FFFFFF"><strong>$ {{unit.3}}</strong></td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="4" align="left" bgcolor="#FFFFFF" class="upline"><strong>Total</strong></td>
+          <td align="center" bgcolor="#FFFFFF" class="upline"> $ {{total}}</td>
+        </tr>
+        <tr>
+          <td colspan="4" align="left" bgcolor="#FFFFFF" class="upline"><strong>Fee</strong> (Fee $100) </td>
+          <td width="100" align="center" bgcolor="#FFFFFF" class="upline">$ 100</td>
+        </tr>
+        <tr>
+          <td colspan="4" align="left" bgcolor="#FFFFFF"><strong>Grand Total</strong></td>
+          <td align="center" bgcolor="#FFFFFF"><strong><font color="#FF0000">$ {{grandtotal}}</font></strong></td>
+        </tr>
+      </table>
+      <table border="0" align="center" cellpadding="10" cellspacing="0">
+        <tr>
+          <td><input type="button" name="Continue" value="Continue Shopping" onclick="window.location='/index/'" /></td>
+          <td><input name="Submit" type="submit" id="Submit" value="Renew Cart"></td>
+          <td><input name="Empty" type="button" id="Empty" onclick="window.location='/addtocart/empty/'" value="Clear Cart" /></td>
+          <td><input name="Order" type="button" id="Order" onclick="window.location='/cartorder/'" value="Checkout" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+{% endblock %}

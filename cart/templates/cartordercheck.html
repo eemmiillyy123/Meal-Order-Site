@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div id="maindiv">
+    {% if firstsearch == 1 %}
+      <form action="/cartordercheck/" method="GET" name="form1">
+        <p class="title">Order Searching </p>
+        <table border="0" align="center" cellpadding="10" cellspacing="0">
+          <tr>
+            <td>Order Number</td>
+            <td><input name="orderid" type="text" class="normalinput" size="10" required/></td>
+            <td>E-mail of Client</td>
+            <td><input name="customemail" type="text" class="normalinput" required/></td>
+            <td><input type="submit" name="Submit3" value="Submit" /></td>
+          </tr>
+        </table>
+      </form>
+    {% else %}
+      {% if notfound == 1 %}
+        <div class="message">Sorry,There is no relevant information in the database.Please enter again.</div>
+        <form action="/cartordercheck/" method="GET" name="form2">
+          <p class="title">Order Searching </p>
+          <table border="0" align="center" cellpadding="10" cellspacing="0">
+            <tr>
+              <td>Order Number</td>
+              <td><input name="orderid" type="text" class="normalinput" size="10" required/></td>
+              <td>E-mail of Client</td>
+              <td><input name="customemail" type="text" class="normalinput" required/></td>
+              <td><input type="submit" name="Submit3" value="Submit" /></td>
+            </tr>
+          </table>
+        </form>
+      {% else %}
+        <p class="title">Order information </p>
+        <p class="subject">Order Number：{{orderid}}<font color="#FF0000"></font></p>
+        <table width="90%" border="0" align="center" cellpadding="4" cellspacing="1">
+          <tr class="head3">
+            <td align="center" bgcolor="#CCCCCC">Product Name</td>
+            <td width="80" align="center" bgcolor="#CCCCCC">Price</td>
+            <td width="80" align="center" bgcolor="#CCCCCC">Number</td>
+            <td width="150" align="center" bgcolor="#CCCCCC">Total price</td>
+          </tr>
+          {% for detail in details %}
+            <tr>
+              <td align="left" bgcolor="#FFFFFF">{{detail.pname}}</td>
+              <td width="80" align="center" bgcolor="#FFFFFF">$ {{detail.unitprice}}</td>
+              <td width="80" align="center" bgcolor="#FFFFFF">{{detail.quantity}}</td>
+              <td width="150" align="center" bgcolor="#FFFFFF"><strong>$ {{detail.dtotal}}</strong></td>
+            </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="3" align="left" bgcolor="#FFFFFF" class="upline"><strong>Total</strong></td>
+            <td width="150" align="center" bgcolor="#FFFFFF" class="upline"><strong>$ {{order.subtotal}}</strong></td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left" bgcolor="#FFFFFF" class="upline"><strong>Fee</strong> (Fee $100) </td>
+            <td width="150" align="center" bgcolor="#FFFFFF" class="upline"><strong>$ 100</strong></td>
+          </tr>
+          <tr>
+            <td colspan="3" align="left" bgcolor="#FFFFFF" class="downline"><strong>Grand total</strong></td>
+            <td width="150" align="center" bgcolor="#FFFFFF" class="downline"><strong><font color="#FF0000">$ {{order.grandtotal}}</font></strong></td>
+          </tr>
+        </table>
+        <p class="subject">Client information </p>
+        <table width="90%" border="0" align="center" cellpadding="4" cellspacing="1">
+          <tr>
+            <td width="100" align="center" bgcolor="#CCCCCC"><strong>Name</strong></td>
+            <td bgcolor="#FFFFFF">{{order.customname}}</td>
+          </tr>
+          <tr>
+            <td width="100" align="center" bgcolor="#CCCCCC"><strong>Phone Number</strong></td>
+            <td bgcolor="#FFFFFF">{{order.customphone}}</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#CCCCCC"><strong>Address</strong></td>
+            <td bgcolor="#FFFFFF">{{order.customaddress}}</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#CCCCCC"><strong>E-mail</strong></td>
+            <td bgcolor="#FFFFFF">{{order.customemail}}</td>
+          </tr>
+          <tr>
+            <td align="center" bgcolor="#CCCCCC"><strong>Payment</strong></td>
+            <td bgcolor="#FFFFFF">{{order.paytype}}</td>
+          </tr>
+        </table>
+        <div style="clear:both"></div>
+        <table border="0" align="center" cellpadding="10" cellspacing="0">
+          <tr>
+            <td><input type="button" name="Submit" value="back to homepage" onclick="window.location='/index/'" /></td>
+          </tr>
+        </table>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endblock %}

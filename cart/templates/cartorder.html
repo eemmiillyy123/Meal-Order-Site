@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div id="maindiv">
+    <form action="/cartok/" method="POST" name="form1" id="form1">
+      {% csrf_token %}
+      <p class="title">Confirm your order</p>
+      <p class="subject">Shopping list</p>
+      <table width="90%" border="0" align="center" cellpadding="4" cellspacing="0">
+        <tr>
+          <th align="center"><strong>Product Name</strong></th>
+          <th width="80" align="center"><strong>Price</strong></th>
+          <th width="80" align="center"><strong>Number</strong></th>
+          <th width="100" align="center"><strong>Total Price</strong></th>
+        </tr>
+        {% for unit in cartlist1 %}
+        <tr>
+          <td bgcolor="#FFFFFF">{{unit.0}}</td>
+          <td width="80" align="center" bgcolor="#FFFFFF">$ {{unit.1}}</td>
+          <td width="80" align="center" bgcolor="#FFFFFF">{{unit.2}}</td>
+          <td width="100" align="center" bgcolor="#FFFFFF"><strong>$ {{unit.3}}</strong></td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="3" align="left" bgcolor="#FFFFFF" class="upline"><strong>Total</strong></td>
+          <td align="center" bgcolor="#FFFFFF" class="upline"> $ {{total}}</td>
+        </tr>
+        <tr>
+          <td colspan="3" align="left" bgcolor="#FFFFFF" class="upline"><strong>Fee</strong> (Fee $100) </td>
+          <td width="100" align="center" bgcolor="#FFFFFF" class="upline">$ 100</td>
+        </tr>
+        <tr>
+          <td colspan="3" align="left" bgcolor="#FFFFFF"><strong>Grand total</strong></td>
+          <td align="center" bgcolor="#FFFFFF"><strong><font color="#FF0000">$ {{grandtotal}}</font></strong></td>
+        </tr>
+      </table>
+      <p class="subject">Client infomation</p>
+      <table width="90%" border="0" align="center" cellpadding="4" cellspacing="0">
+        <tr>
+          <th width="100" align="center">Infomation</th>
+          <th>Content</th>
+        </tr>
+        <tr>
+          <td width="100" align="center" bgcolor="#FFFFFF"><strong>Name</strong></td>
+          <td bgcolor="#FFFFFF"><input name="CustomerName" type="text" class="normalinput" id="CustomerName" value="{{customname1}}" required/></td>
+        </tr>
+        <tr>
+          <td width="100" align="center" bgcolor="#FFFFFF"><strong>Phone Number</strong></td>
+          <td bgcolor="#FFFFFF"><input name="CustomerPhone" type="text" class="normalinput" id="CustomerPhone" value="{{customphone1}}" required/></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#FFFFFF"><strong>Address</strong></td>
+          <td bgcolor="#FFFFFF"><input name="CustomerAddress" type="text" class="normalinput" id="CustomerAddress" size="40" value="{{customaddress1}}" required/></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#FFFFFF"><strong>E-mail</strong></td>
+          <td bgcolor="#FFFFFF"><input name="CustomerEmail" type="text" class="normalinput" id="CustomerEmail" value="{{customemail1}}" required/></td>
+        </tr>
+        <tr>
+          <td align="center" bgcolor="#FFFFFF"><strong>Payment</strong></td>
+          <td bgcolor="#FFFFFF"><input name="paytype" type="radio" value="ATM Transfer" checked="checked" />
+            ATM Transfer
+            <input name="paytype" type="radio" value="Cash" />
+            Cash</td>
+        </tr>
+      </table>
+      <div style="clear:both"></div>
+      <table border="0" align="center" cellpadding="10" cellspacing="0">
+        <tr>
+          <td><input type="button" name="button1" value="Continue shopping" onclick="window.location='/index/'" /></td>
+          <td><input type="button" name="button2" value="Revise the content of cart" onclick="window.location='/cart/'" /></td>
+          <td><input type="submit" name="Submit" value="Confirm" /></td>
+        </tr>
+      </table>
+      <span style="color:red">{{message1}}</span>
+    </form>
+  </div>
+{% endblock %}

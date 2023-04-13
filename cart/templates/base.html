@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Meal Ordering Site</title>
+    {% load static %}
+    <link href="{% static "css/PageStyle.css" %}" rel="stylesheet" type="text/css" />
+    {% block script %}{% endblock %}
+</head>
+<body>
+    <div id="warp">
+      <div id="header">
+        <div class="logo"></div>
+      </div>
+      <div id="content"> 
+        <img src="{% static "images/cartTitle_1.png" %}" width="920" height="29" />
+        <div id="sidediv">
+          <div class="sidemenu">List</div>
+          <ul>
+            <li><a href="/cart/">Your Cart</a></li>
+            <li><a href="/cartordercheck/">Orders</a></li>
+            <li><a href="/index/">homepage</a></li>
+          </ul>
+        </div>
+        {% block content %}{% endblock %}
+        <div style="clear:both"></div>
+      </div>
+      <div id="footer"></div>
+    </div>
+</body>
+</html>
